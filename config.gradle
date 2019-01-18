@@ -1,0 +1,11 @@
+ext {
+    versions = [
+            'versionCode'   : 1,
+            'versionName'   : '1.0',
+
+            'compileSdk'    : 28,
+            'buildTools'    : '28.0.3',
+            'minSdk'        : 15,
+            'targetSdk'     : 28
+    ]
+}
