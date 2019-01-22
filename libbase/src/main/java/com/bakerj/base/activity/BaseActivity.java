@@ -2,12 +2,9 @@ package com.bakerj.base.activity;
 
 import android.app.Dialog;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +19,9 @@ import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import icepick.Icepick;
 
 /**
@@ -135,10 +135,10 @@ public abstract class BaseActivity extends RxAppCompatActivity implements IBaseA
     protected abstract int getLoadingStyle();
 
     protected void setDarkStatusBar() {
-        BarUtils.setStatusBarAlpha(this, 0);
+        BarUtils.setStatusBarColor(this, Color.TRANSPARENT);
         int type = StatusBarUtils.statusBarDarkMode(this);
         if (type == 0) {
-            BarUtils.setStatusBarAlpha(this, 100);
+            BarUtils.setStatusBarColor(this, Color.argb(100, 0, 0, 0));
         }
     }
 }
