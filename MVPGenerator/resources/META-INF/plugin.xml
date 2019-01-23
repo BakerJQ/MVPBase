@@ -1,0 +1,35 @@
+<idea-plugin>
+  <id>com.bakerj.mvp.generator.id</id>
+  <name>MVPGenerator</name>
+  <version>1.1</version>
+  <vendor email="305317218@qq.com" url="http://www.bakerjq.com">BakerJ</vendor>
+
+  <description><![CDATA[
+      MVPGenerator.<br>
+      <em></em>
+    ]]></description>
+
+  <change-notes><![CDATA[
+      Add Dagger2 Support.<br>
+      <em></em>
+    ]]>
+  </change-notes>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+  <idea-version since-build="171"/>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+       on how to target different products -->
+  <!-- uncomment to enable plugin in all products
+  <depends>com.intellij.modules.lang</depends>
+  -->
+  <actions>
+    <!-- Add your actions here -->
+    <action id="GenerateMVP.ID" class="mvp.GenerateMVPAction" text="MVPGenerator"
+            description="a plugin to generate MVP framework with dagger2">
+      <add-to-group group-id="NewGroup" anchor="first"/>
+      <keyboard-shortcut keymap="$default" first-keystroke="ctrl meta P"/>
+    </action>
+  </actions>
+
+</idea-plugin>
