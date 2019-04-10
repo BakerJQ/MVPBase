@@ -10,8 +10,8 @@ android {
         flavorDimensions "versionCode"
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [moduleName: project.getName()]
-
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+                includeCompileClasspath true
             }
         }
     }
@@ -24,13 +24,13 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     api 'com.github.BakerJQ:RxRetroHttp:1.0.3'
-    implementation 'androidx.recyclerview:recyclerview:1.1.0-alpha01'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0-alpha04'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-    api 'com.blankj:utilcode:1.23.0'
-    api 'com.alibaba:arouter-api:1.3.1'
-    api 'com.alibaba:arouter-annotation:1.0.4'
+    api 'com.blankj:utilcode:1.23.7'
+    api 'com.alibaba:arouter-api:1.4.1'
+    api 'com.alibaba:arouter-annotation:1.0.6'
     api 'com.r0adkll:slidableactivity:2.0.6'
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
     api 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.5.1'
