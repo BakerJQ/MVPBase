@@ -23,7 +23,7 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    api 'com.github.BakerJQ:RxRetroHttp:1.0.3'
+    api 'com.github.BakerJQ:RxRetroHttp:1.0.5'
     implementation 'androidx.recyclerview:recyclerview:1.1.0-alpha04'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
