@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bakerj.rxretrohttp.interfaces.IBaseApiAction;
-import com.trello.rxlifecycle2.LifecycleTransformer;
-import com.trello.rxlifecycle2.components.support.RxAppCompatDialogFragment;
+import com.trello.rxlifecycle3.LifecycleTransformer;
+import com.trello.rxlifecycle3.components.support.RxAppCompatDialogFragment;
 
 import icepick.Icepick;
 
