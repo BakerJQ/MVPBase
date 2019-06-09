@@ -28,11 +28,20 @@ public class CustomRefreshLayout extends SmartRefreshLayout {
         setEnableLoadMoreWhenContentNotFull(false);
     }
 
+    public boolean isRefreshing() {
+        return mState == RefreshState.Refreshing;
+    }
+
+    public boolean isLoading() {
+        return mState == RefreshState.Loading;
+    }
+
     public static class AbstractOnMultiPurposeListener implements OnMultiPurposeListener {
 
+
         @Override
-        public void onHeaderPulling(RefreshHeader header, float percent, int offset, int
-                headerHeight, int extendHeight) {
+        public void onHeaderMoving(RefreshHeader header, boolean isDragging, float percent,
+                                   int offset, int headerHeight, int maxDragHeight) {
 
         }
 
@@ -41,11 +50,6 @@ public class CustomRefreshLayout extends SmartRefreshLayout {
 
         }
 
-        @Override
-        public void onHeaderReleasing(RefreshHeader header, float percent, int offset, int
-                headerHeight, int extendHeight) {
-
-        }
 
         @Override
         public void onHeaderStartAnimator(RefreshHeader header, int headerHeight, int
@@ -59,19 +63,13 @@ public class CustomRefreshLayout extends SmartRefreshLayout {
         }
 
         @Override
-        public void onFooterPulling(RefreshFooter footer, float percent, int offset, int
-                footerHeight, int extendHeight) {
+        public void onFooterMoving(RefreshFooter footer, boolean isDragging, float percent,
+                                   int offset, int footerHeight, int maxDragHeight) {
 
         }
 
         @Override
         public void onFooterReleased(RefreshFooter footer, int footerHeight, int extendHeight) {
-
-        }
-
-        @Override
-        public void onFooterReleasing(RefreshFooter footer, float percent, int offset, int
-                footerHeight, int extendHeight) {
 
         }
 

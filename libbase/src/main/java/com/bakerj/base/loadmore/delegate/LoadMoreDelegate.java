@@ -111,9 +111,9 @@ public class LoadMoreDelegate<Presenter extends LoadMorePresenter, Adapter
         }
         mAdapter.setNewData(resultList);
         mAdapter.notifyDataSetChanged();
-        mRefreshLayout.finishRefresh(0, true);
+        mRefreshLayout.finishRefresh(0, true, !hasMore);
 //        mRefreshLayout.setEnableLoadMore(hasMore);
-        mRefreshLayout.setNoMoreData(!hasMore);
+//        mRefreshLayout.setNoMoreData(!hasMore);
     }
 
     public void refreshFailed(Throwable t) {
