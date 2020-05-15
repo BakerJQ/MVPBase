@@ -1,7 +1,6 @@
 package com.bakerj.base.activity;
 
 import android.app.Dialog;
-import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,6 +8,10 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bakerj.base.utils.StatusBarUtils;
@@ -19,9 +22,6 @@ import com.trello.rxlifecycle3.LifecycleTransformer;
 import com.trello.rxlifecycle3.android.ActivityEvent;
 import com.trello.rxlifecycle3.components.support.RxAppCompatActivity;
 
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import icepick.Icepick;
 
 /**
@@ -42,9 +42,6 @@ public abstract class BaseActivity extends RxAppCompatActivity implements IBaseA
             getIntentBundleOrRestore(savedInstanceState);
         }
         initLoadingDialog();
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        }
     }
 
     private void getIntentBundleOrRestore(Bundle savedInstanceState) {
@@ -83,9 +80,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements IBaseA
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && isDestroyed()) {
                 return;
             }
-            runOnUiThread(() -> {
-                mLoadingDialog.show();
-            });
+            runOnUiThread(() -> mLoadingDialog.show());
         }
     }
 
@@ -95,9 +90,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements IBaseA
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && isDestroyed()) {
                 return;
             }
-            runOnUiThread(() -> {
-                mLoadingDialog.dismiss();
-            });
+            runOnUiThread(() -> mLoadingDialog.dismiss());
         }
     }
 
@@ -110,8 +103,8 @@ public abstract class BaseActivity extends RxAppCompatActivity implements IBaseA
     }
 
     protected void addFragment(int containerViewId, Fragment fragment, String tag) {
-        final FragmentTransaction fragmentTransaction = this.getSupportFragmentManager()
-                .beginTransaction();
+        final FragmentTransaction fragmentTransaction =
+                getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(containerViewId, fragment, tag);
         fragmentTransaction.commit();
     }

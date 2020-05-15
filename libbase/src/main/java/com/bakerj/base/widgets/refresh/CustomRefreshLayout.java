@@ -20,11 +20,7 @@ public class CustomRefreshLayout extends SmartRefreshLayout {
     }
 
     public CustomRefreshLayout(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
-    }
-
-    public CustomRefreshLayout(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
+        super(context, attrs);
         setEnableLoadMoreWhenContentNotFull(false);
     }
 
