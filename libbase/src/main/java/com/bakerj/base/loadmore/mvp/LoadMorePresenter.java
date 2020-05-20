@@ -20,10 +20,15 @@ import io.reactivex.schedulers.Schedulers;
 public abstract class LoadMorePresenter<View extends LoadMoreContract.View<DestModel>, Quest,
         SrcModel, DestModel>
         extends LoadMoreContract.Presenter<View, Quest> {
+    private static LoadMoreErrorHandler.LoadMoreErrorHandlerCreator errorHandlerCreator;
+    private LoadMoreErrorHandler errorHandler;
 
     public LoadMorePresenter(View view) {
         super(view);
         mBody = getQuestBody();
+        if (errorHandlerCreator != null) {
+            errorHandler = errorHandlerCreator.create();
+        }
     }
 
     /**
@@ -80,6 +85,9 @@ public abstract class LoadMorePresenter<View extends LoadMoreContract.View<DestM
     protected abstract boolean hasMore(List<DestModel> data);
 
     protected void refreshFailed(Throwable t) {
+        if (errorHandler != null && errorHandler.handle(t)) {
+            return;
+        }
         mView.refreshFailed(t);
     }
 
@@ -126,6 +134,9 @@ public abstract class LoadMorePresenter<View extends LoadMoreContract.View<DestM
     }
 
     protected void loadMoreFailed(Throwable t) {
+        if (errorHandler != null && errorHandler.handle(t)) {
+            return;
+        }
         mView.loadMoreFailed(t);
     }
 
@@ -141,5 +152,9 @@ public abstract class LoadMorePresenter<View extends LoadMoreContract.View<DestM
     }
 
     protected void doOnSourceGet(List<SrcModel> data) {
+    }
+
+    public static void setErrorHandlerCreator(LoadMoreErrorHandler.LoadMoreErrorHandlerCreator errorHandlerCreator) {
+        LoadMorePresenter.errorHandlerCreator = errorHandlerCreator;
     }
 }
