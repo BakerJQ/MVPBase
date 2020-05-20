@@ -2,6 +2,7 @@ package com.bakerj.base.loadmore.mvp;
 
 import com.bakerj.rxretrohttp.subscriber.ApiObserver;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -55,6 +56,11 @@ public abstract class LoadMorePresenter<View extends LoadMoreContract.View<DestM
                     protected void error(Throwable t) {
                         super.error(t);
                         refreshFailed(t);
+                    }
+
+                    @Override
+                    protected void dataNull() {
+                        loadMoreSuccess(new ArrayList<>());
                     }
 
                     @Override
@@ -114,6 +120,11 @@ public abstract class LoadMorePresenter<View extends LoadMoreContract.View<DestM
                     protected void error(Throwable t) {
                         super.error(t);
                         loadMoreFailed(t);
+                    }
+
+                    @Override
+                    protected void dataNull() {
+                        loadMoreSuccess(new ArrayList<>());
                     }
 
                     @Override
