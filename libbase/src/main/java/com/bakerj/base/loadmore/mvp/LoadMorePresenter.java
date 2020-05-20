@@ -26,7 +26,6 @@ public abstract class LoadMorePresenter<View extends LoadMoreContract.View<DestM
 
     public LoadMorePresenter(View view) {
         super(view);
-        mBody = getQuestBody();
         if (errorHandlerCreator != null) {
             errorHandler = errorHandlerCreator.create();
         }
@@ -44,6 +43,9 @@ public abstract class LoadMorePresenter<View extends LoadMoreContract.View<DestM
 
     @Override
     public void refresh() {
+        if (mBody == null) {
+            mBody = getQuestBody();
+        }
         setUpRefreshBody(mBody);
         getRequestObservable()
                 .subscribe(new ApiObserver<List<DestModel>>() {
