@@ -3,12 +3,15 @@ package com.bakerj.base.widgets.refresh;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshFooter;
-import com.scwang.smartrefresh.layout.api.RefreshHeader;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.constant.RefreshState;
-import com.scwang.smartrefresh.layout.listener.OnMultiPurposeListener;
+import androidx.annotation.NonNull;
+
+import com.scwang.smart.refresh.layout.SmartRefreshLayout;
+import com.scwang.smart.refresh.layout.api.RefreshFooter;
+import com.scwang.smart.refresh.layout.api.RefreshHeader;
+import com.scwang.smart.refresh.layout.api.RefreshLayout;
+import com.scwang.smart.refresh.layout.constant.RefreshState;
+import com.scwang.smart.refresh.layout.simple.SimpleMultiListener;
+
 
 /**
  * Created by BakerJ on 2017/12/20.
@@ -32,7 +35,7 @@ public class CustomRefreshLayout extends SmartRefreshLayout {
         return mState == RefreshState.Loading;
     }
 
-    public static class AbstractOnMultiPurposeListener implements OnMultiPurposeListener {
+    public static class AbstractOnMultiPurposeListener extends SimpleMultiListener {
 
 
         @Override
@@ -85,14 +88,15 @@ public class CustomRefreshLayout extends SmartRefreshLayout {
 
         }
 
+
+
         @Override
-        public void onStateChanged(RefreshLayout refreshLayout, RefreshState oldState,
-                                   RefreshState newState) {
+        public void onLoadMore(RefreshLayout refreshLayout) {
 
         }
 
         @Override
-        public void onLoadMore(RefreshLayout refreshLayout) {
+        public void onStateChanged(@NonNull RefreshLayout refreshLayout, @NonNull RefreshState oldState, @NonNull RefreshState newState) {
 
         }
     }

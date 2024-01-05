@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion versions.compileSdk
@@ -11,31 +12,72 @@ android {
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [AROUTER_MODULE_NAME: project.getName()]
-                includeCompileClasspath true
+//                includeCompileClasspath true
             }
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
+    namespace 'com.bakerj.base'
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    api 'com.github.BakerJQ:RxRetroHttp:1.2.0'
-    implementation 'androidx.recyclerview:recyclerview:1.2.0-alpha03'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    api 'com.github.BakerJQ:RxRetroHttp:1.2.10'
+    implementation 'androidx.recyclerview:recyclerview:1.3.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test:runner:1.5.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    api 'com.blankj:utilcode:1.27.3'
-    api 'com.alibaba:arouter-api:1.4.1'
-    api 'com.alibaba:arouter-annotation:1.0.6'
+    api 'com.blankj:utilcodex:1.31.1'
+    api 'com.alibaba:arouter-api:1.5.2'
+//    api 'com.alibaba:arouter-annotation:1.0.6'
     api 'com.r0adkll:slidableactivity:2.0.6'
-    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.2'
-    api 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-andx-11'
+    api 'io.github.scwang90:refresh-layout-kernel:2.1.0'
+    api 'io.github.scwang90:refresh-header-classics:2.1.0'
     api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.50'
     api 'frankiesardo:icepick:3.2.0'
     api 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+//                println("Com-------:"+components*.name)
+                // Applies the component for the release build variant.
+//                from components.release
+
+                // You can then customize attributes of the publication as shown below.
+                groupId = 'com.github.BakerJQ'
+                artifactId = 'MVPBase'
+                version = '1.2.1'
+                artifact(bundleReleaseAar)
+                //generate pom nodes for dependencies
+                pom.withXml {
+                    def dependenciesNode = asNode().appendNode('dependencies')
+                    configurations.implementation.allDependencies.each { dependency ->
+                        if (dependency.name != 'unspecified') {
+                            def dependencyNode = dependenciesNode.appendNode('dependency')
+                            dependencyNode.appendNode('groupId', dependency.group)
+                            dependencyNode.appendNode('artifactId', dependency.name)
+                            dependencyNode.appendNode('version', dependency.version)
+                        }
+                    }
+                }
+                // Creates a Maven publication called “debug”.
+//            debug(MavenPublication) {
+//                // Applies the component for the debug build variant.
+//                from components.debug
+//
+//                groupId = 'com.example.MyLibrary'
+//                artifactId = 'final-debug'
+//                version = '1.0'
+//            }
+            }
+        }
+    }
 }
